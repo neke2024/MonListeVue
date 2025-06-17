@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Liste de Courses - Vue.js</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h1>🛒 Ma liste de courses</h1>
+
+        <div class="input-group">
+            <input type="text" v-model="nouvelArticle" placeholder="Ajouter un article..." @keyup.enter="ajouterArticle"
+                aria-label="Nouvel article à ajouter">
+            <button @click="ajouterArticle" aria-label="Ajouter l'article">
+                Ajouter
+            </button>
+        </div>
+
+        <ul v-if="liste.length">
+            <li v-for="(article, index) in liste" :key="index" :class="{ 'acheté': article.fait }">
+                <span @click="toggleFait(index)" :aria-checked="article.fait" role="checkbox">
+                    {{ article.nom }}
+                </span>
+                <button @click="supprimerArticle(index)" aria-label="Supprimer l'article">
+                    ❌
+                </button>
+            </li>
+        </ul>
+
+        <p v-else class="empty-message">
+            Votre liste de courses est vide. Ajoutez des articles !
+        </p>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
